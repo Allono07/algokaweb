@@ -57,6 +57,26 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Algoka custom colors
+        space: {
+          dark: "hsl(var(--space-dark))",
+          mid: "hsl(var(--space-mid))",
+        },
+        star: {
+          glow: "hsl(var(--star-glow))",
+        },
+        flame: {
+          orange: "hsl(var(--flame-orange))",
+          yellow: "hsl(var(--flame-yellow))",
+          red: "hsl(var(--flame-red))",
+        },
+        cloud: {
+          light: "hsl(var(--cloud-light))",
+          dark: "hsl(var(--cloud-dark))",
+        },
+        label: {
+          glow: "hsl(var(--label-glow))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -65,25 +85,69 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "twinkle": {
+          "0%, 100%": { opacity: "0.3" },
+          "50%": { opacity: "1" },
+        },
+        "float": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        "flame-flicker": {
+          "0%, 100%": { 
+            transform: "scaleY(1) scaleX(1)",
+            opacity: "1",
           },
-          to: {
-            height: "0",
+          "25%": { 
+            transform: "scaleY(1.1) scaleX(0.95)",
+            opacity: "0.9",
+          },
+          "50%": { 
+            transform: "scaleY(0.95) scaleX(1.05)",
+            opacity: "1",
+          },
+          "75%": { 
+            transform: "scaleY(1.05) scaleX(0.98)",
+            opacity: "0.85",
+          },
+        },
+        "cloud-drift": {
+          "0%": { transform: "translateX(0) scale(1)" },
+          "50%": { transform: "translateX(30px) scale(1.02)" },
+          "100%": { transform: "translateX(0) scale(1)" },
+        },
+        "cloud-drift-slow": {
+          "0%": { transform: "translateX(0) scale(1)" },
+          "50%": { transform: "translateX(-20px) scale(1.01)" },
+          "100%": { transform: "translateX(0) scale(1)" },
+        },
+        "glow-pulse": {
+          "0%, 100%": { 
+            boxShadow: "0 0 5px hsl(var(--primary) / 0.5), 0 0 10px hsl(var(--primary) / 0.3)",
+          },
+          "50%": { 
+            boxShadow: "0 0 15px hsl(var(--primary) / 0.7), 0 0 30px hsl(var(--primary) / 0.4)",
           },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "twinkle": "twinkle 3s ease-in-out infinite",
+        "twinkle-slow": "twinkle 5s ease-in-out infinite",
+        "twinkle-fast": "twinkle 2s ease-in-out infinite",
+        "float": "float 3s ease-in-out infinite",
+        "flame-flicker": "flame-flicker 0.15s ease-in-out infinite",
+        "cloud-drift": "cloud-drift 20s ease-in-out infinite",
+        "cloud-drift-slow": "cloud-drift-slow 30s ease-in-out infinite",
+        "glow-pulse": "glow-pulse 2s ease-in-out infinite",
       },
     },
   },
