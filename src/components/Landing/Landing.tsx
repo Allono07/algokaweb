@@ -11,6 +11,7 @@ const Landing = () => {
   const isMobile = useIsMobile();
   const [isRocketHovered, setIsRocketHovered] = useState(false);
   const [hasPlayed, setHasPlayed] = useState(false);
+  const [isLaunching, setIsLaunching] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(animationRef, { amount: 0.3 });
@@ -77,10 +78,13 @@ const Landing = () => {
     ? "M 50 500 Q 100 350 300 100" 
     : "M 50 650 Q 100 400 250 350 Q 400 300 450 100";
 
-  return (
-    <section className="landing" ref={containerRef}>
-      <StarField />
+  const handleExploreClick = () => {
+    document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+  };
 
+  return (
+    <section className="landing" ref={containerRef} id="home">
+      
       <div className="landing-content">
         {/* Left side - Animation area */}
         <div className="landing-animation" ref={animationRef}>
@@ -111,12 +115,26 @@ const Landing = () => {
             style={{
               left: rocketX,
               top: rocketY,
+              zIndex: isLaunching ? 100 : 20, // Bring to front when launching
             }}
           >
             <motion.div
               className="rocket-float-wrapper"
-              animate={{ y: [0, -8, 0] }}
-              transition={{
+              animate={isLaunching ? { 
+                y: "-150vh", // Fly completely off screen
+                x: "20vw",   // Slight horizontal trajectory
+                scale: 0.5,  // Fly away into distance
+                opacity: 0
+              } : { 
+                y: [0, -8, 0],
+                x: 0,
+                scale: 1,
+                opacity: 1
+              }}
+              transition={isLaunching ? { 
+                duration: 1.5, 
+                ease: [0.4, 0, 0.2, 1] // Accelerate out (easeIn)
+              } : {
                 duration: 3,
                 repeat: Infinity,
                 ease: "easeInOut",
@@ -127,6 +145,7 @@ const Landing = () => {
                 onHoverStart={() => setIsRocketHovered(true)}
                 onHoverEnd={() => setIsRocketHovered(false)}
                 rotation={rocketRotation.get()}
+                onClick={() => setIsLaunching(true)}
               />
             </motion.div>
           </motion.div>
@@ -150,6 +169,7 @@ const Landing = () => {
              
             </p>
             <motion.button
+              onClick={handleExploreClick}
               className="landing-cta"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

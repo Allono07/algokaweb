@@ -67,4 +67,10 @@
   }
 
 }
+
+@media only screen and (orientation: landscape) and (max-height: 500px) {
+  .clouds-container {
+    bottom: -100px;
+  }
+}
  

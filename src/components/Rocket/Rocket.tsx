@@ -7,9 +7,10 @@ interface RocketProps {
   onHoverStart: () => void;
   onHoverEnd: () => void;
   rotation?: number;
+  onClick?: () => void;
 }
 
-const Rocket = ({ isHovered, onHoverStart, onHoverEnd, rotation = 0 }: RocketProps) => {
+const Rocket = ({ isHovered, onHoverStart, onHoverEnd, rotation = 0, onClick }: RocketProps) => {
   return (
     <motion.div
       className="rocket-wrapper"
@@ -17,6 +18,9 @@ const Rocket = ({ isHovered, onHoverStart, onHoverEnd, rotation = 0 }: RocketPro
       onHoverStart={onHoverStart}
       onHoverEnd={onHoverEnd}
       whileHover={{ scale: 1.05 }}
+      onClick={onClick}
+      whileTap={{ scale: 0.95 }}
+      cursor="pointer"
     >
       <div className="rocket">
         {/* Rocket Image - User providing rocket.png in public folder */}

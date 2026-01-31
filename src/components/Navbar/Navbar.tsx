@@ -4,10 +4,10 @@ import { Menu, X } from "lucide-react";
 import "./Navbar.css";
 
 const navItems = [
-  { label: "HOME", href: "#" },
-  { label: "ABOUT", href: "#" },
-  { label: "PROJECTS", href: "#" },
-  { label: "CONTACT", href: "#" },
+  { label: "HOME", href: "#home" },
+  { label: "ABOUT", href: "#about" },
+  { label: "PROJECTS", href: "#projects" },
+  { label: "CONTACT", href: "#contact" },
 ];
 
 const Navbar = () => {
@@ -29,8 +29,11 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <ul className="navbar-links">
           {navItems.map((item) => (
-            <li key={item.label}>
-              <a href={item.href} className="navbar-link">
+            <li key={item.label} className={item.label === "CONTACT" ? "navbar-item-contact" : ""}>
+              <a 
+                href={item.href} 
+                className={`navbar-link ${item.label === "CONTACT" ? "navbar-btn-contact" : ""}`}
+              >
                 <span>{item.label}</span>
                 {/* <span className="navbar-link-underline" /> */}
               </a>

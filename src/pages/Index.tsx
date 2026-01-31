@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar/Navbar";
 import Landing from "@/components/Landing/Landing";
+import About from "@/components/About/About";
+import Projects from "@/components/Projects/Projects";
+import Contact from "@/components/Contact/Contact";
+import StarField from "@/components/StarField/StarField";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -26,8 +30,12 @@ const Index = () => {
 
   return (
     <main className="min-h-screen">
+      <StarField />
       <Navbar />
       <Landing />
+      <About />
+      <Projects />
+      <Contact />
     </main>
   );
 };
