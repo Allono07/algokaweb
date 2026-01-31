@@ -58,3 +58,12 @@
     bottom: 0;
   }
 }
+
+@media only screen and (max-width: 430px) {
+  /* iPhone 14 Pro Max + other large iPhones */
+   .clouds-container {
+    bottom: -50px;
+  }
+
+}
+ 
