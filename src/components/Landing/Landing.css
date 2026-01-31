@@ -63,10 +63,13 @@
 }
 
 .landing-cta {
-  display: inline-flex;
+  width: 130px;
+  height: 50px;
+  display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 2rem;
+  justify-content: flex-start;
+  gap: 10px;
+  padding-left: 20px;
   font-size: 1rem;
   font-weight: 600;
   color: hsl(var(--primary-foreground));
@@ -76,26 +79,36 @@
     hsl(200 100% 50%) 100%
   );
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 30px;
   cursor: pointer;
   box-shadow: 
     0 4px 15px hsl(var(--primary) / 0.4),
     0 0 30px hsl(var(--primary) / 0.2);
-  transition: all 0.3s ease;
+  transition-duration: .5s;
+  position: relative;
 }
 
 .landing-cta:hover {
   box-shadow: 
     0 6px 20px hsl(var(--primary) / 0.5),
     0 0 40px hsl(var(--primary) / 0.3);
+  transition-duration: .5s;
 }
 
-.landing-cta-arrow {
-  transition: transform 0.3s ease;
+.landing-cta:active {
+  transform: scale(0.97);
+  transition-duration: .2s;
 }
 
-.landing-cta:hover .landing-cta-arrow {
-  transform: translateX(4px);
+.svgIcon {
+  height: 25px;
+  fill: currentColor;
+  transition-duration: 1.5s;
+}
+
+.landing-cta:hover .svgIcon {
+  transform: rotate(250deg);
+  transition-duration: 1.5s;
 }
 
 .motion-path-svg {
@@ -185,6 +198,10 @@
 
   .landing-subheading {
     font-size: 1rem;
+  }
+
+  .landing-cta {
+    margin: 0 auto;
   }
 
   .replay-btn {
