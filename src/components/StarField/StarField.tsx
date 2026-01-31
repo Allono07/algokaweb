@@ -69,8 +69,32 @@ const StarField = () => {
       <div className="absolute animate-star-move-mid" style={{ left: "45%", top: "10%" }}>
         <div className="star star-large animate-twinkle" style={{ position: "static" }} />
       </div>
+
+      {/* Comets */}
+      <div className="absolute animate-comet" style={{ animationDelay: "2s", animationDuration: "28s", top: 0, left: 0 }}>
+         <div className="relative" style={{ transform: "rotate(135deg)" }}>
+            <div className="comet">
+              <div className="comet-tail" />
+            </div>
+         </div>
+      </div>
+       <div className="absolute animate-comet" style={{ animationDelay: "15s", animationDuration: "35s", top: "-20%", left: "10%" }}>
+         <div className="relative" style={{ transform: "rotate(135deg)" }}>
+            <div className="comet">
+              <div className="comet-tail" />
+            </div>
+         </div>
+      </div>
+       <div className="absolute animate-comet" style={{ animationDelay: "8s", animationDuration: "22s", top: "30%", left: "-20%" }}>
+         <div className="relative" style={{ transform: "rotate(135deg)" }}>
+            <div className="comet">
+              <div className="comet-tail" />
+            </div>
+         </div>
+      </div>
     </div>
   );
 };
+
 
 export default StarField;

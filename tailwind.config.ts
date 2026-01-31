@@ -140,6 +140,12 @@ export default {
           "0%": { transform: "translate(100px, -100px)" },
           "100%": { transform: "translate(-100px, 100px)" },
         },
+        "comet": {
+          "0%": { transform: "translateX(150vw) translateY(-50vh)", opacity: "0" },
+          "5%": { opacity: "1" },
+          "80%": { opacity: "1" },
+          "100%": { transform: "translateX(-50vw) translateY(150vh)", opacity: "0" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -155,6 +161,7 @@ export default {
         "star-move-slow": "star-move 60s linear infinite",
         "star-move-mid": "star-move 45s linear infinite",
         "star-move-fast": "star-move 30s linear infinite",
+        "comet": "comet 10s linear infinite",
       },
     },
   },

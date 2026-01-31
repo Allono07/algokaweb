@@ -24,3 +24,24 @@
     0 0 6px 2px hsl(var(--star-glow) / 0.4),
     0 0 12px 4px hsl(var(--star-glow) / 0.2);
 }
+
+.comet {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  border-radius: 50%;
+  box-shadow: none;
+}
+
+.comet-tail {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 150px;
+  height: 1px;
+  background: linear-gradient(to left, rgba(255,255,255,1), transparent);
+  transform: translateY(-50%);
+  transform-origin: right center;
+}
+
