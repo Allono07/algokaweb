@@ -136,6 +136,11 @@ export default {
             boxShadow: "0 0 15px hsl(var(--primary) / 0.7), 0 0 30px hsl(var(--primary) / 0.4)",
           },
         },
+        "star-move": {
+          "0%": { transform: "translate(0, 0)" },
+          "50%": { transform: "translate(-30px, 50px)" },
+          "100%": { transform: "translate(0, 0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -148,6 +153,9 @@ export default {
         "cloud-drift": "cloud-drift 20s ease-in-out infinite",
         "cloud-drift-slow": "cloud-drift-slow 30s ease-in-out infinite",
         "glow-pulse": "glow-pulse 2s ease-in-out infinite",
+        "star-move-slow": "star-move 10s linear infinite",
+        "star-move-mid": "star-move 7s linear infinite",
+        "star-move-fast": "star-move 4s linear infinite",
       },
     },
   },

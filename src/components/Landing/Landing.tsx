@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, useInView, useMotionValue, animate } from "framer-motion";
+import { useIsMobile } from "@/hooks/use-mobile";
 import Rocket from "../Rocket/Rocket";
 import StageLabels from "../StageLabels/StageLabels";
 import StarField from "../StarField/StarField";
@@ -7,6 +8,7 @@ import Clouds from "../Clouds/Clouds";
 import "./Landing.css";
 
 const Landing = () => {
+  const isMobile = useIsMobile();
   const [isRocketHovered, setIsRocketHovered] = useState(false);
   const [hasPlayed, setHasPlayed] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -15,7 +17,12 @@ const Landing = () => {
   
   // Motion values for rocket position
   const progress = useMotionValue(0);
-  const rocketX = useTransform(progress, [0, 0.5, 1], ["10%", "45%", "80%"]);
+  
+  // Responsive animation values
+  const rocketXRange = isMobile ? ["25%", "50%", "75%"] : ["10%", "45%", "80%"];
+  const rocketYRange = isMobile ? ["80%", "45%", "15%"] : ["80%", "50%", "15%"];
+  
+  const rocketX = useTransform(progress, [0, 0.5, 1], rocketXRange);
   const rocketY = useTransform(progress, [0, 0.5, 1], ["80%", "50%", "10%"]);
   const rocketRotation = useTransform(progress, [0, 0.5, 1], [15, 30, 45]);
   
@@ -56,11 +63,19 @@ const Landing = () => {
   }, [progress]);
 
   // Stage label positions (relative to animation container)
-  const labelPositions = {
-    build: { x: "20%", y: "74%" },
-    solve: { x: "50%", y: "48%" },
+  const labelPositions = isMobile ? {
+    build: { x: "20%", y: "65%" },
+    solve: { x: "40%", y: "40%" },
+    think: { x: "50%", y: "15%" },
+  } : {
+ build: { x: "30%", y: "65%" },
+    solve: { x: "50%", y: "40%" },
     think: { x: "70%", y: "15%" },
   };
+
+  const pathD = isMobile 
+    ? "M 50 500 Q 100 350 300 100" 
+    : "M 50 650 Q 100 400 250 350 Q 400 300 450 100";
 
   return (
     <section className="landing" ref={containerRef}>
@@ -70,7 +85,7 @@ const Landing = () => {
         {/* Left side - Animation area */}
         <div className="landing-animation" ref={animationRef}>
           {/* SVG path for visual reference (optional, hidden by default) */}
-          <svg className="motion-path-svg" viewBox="0 0 600 700" preserveAspectRatio="xMidYMid meet">
+          <svg className="motion-path-svg" viewBox={isMobile ? "0 0 400 600" : "0 0 600 700"} preserveAspectRatio="xMidYMid meet">
             <defs>
               <linearGradient id="pathGradient" x1="0%" y1="100%" x2="0%" y2="0%">
                 <stop offset="0%" stopColor="hsl(var(--primary) / 0.1)" />
@@ -78,7 +93,7 @@ const Landing = () => {
               </linearGradient>
             </defs>
             <path
-              d="M 50 650 Q 100 400 250 350 Q 400 300 450 100"
+              d={pathD}
               fill="none"
               stroke="url(#pathGradient)"
               strokeWidth="2"
@@ -128,14 +143,11 @@ const Landing = () => {
             <h1 className="landing-heading">
               <span className="landing-heading-accent">ALGOKA</span>
               <br />
-              Solutions for
-              <br />
-              Tomorrow
+              Solutions for Tomorrow
             </h1>
             <p className="landing-subheading">
               We build intelligent systems that transform your business.
-              From concept to deployment, Algoka delivers cutting-edge
-              AI solutions tailored to your needs.
+             
             </p>
             <motion.button
               className="landing-cta"

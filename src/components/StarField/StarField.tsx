@@ -6,14 +6,16 @@ interface Star {
   x: number;
   y: number;
   size: number;
-  animationDelay: string;
-  animationClass: string;
+  twinkleDelay: string;
+  twinkleClass: string;
+  moveClass: string;
 }
 
 const StarField = () => {
   const stars = useMemo<Star[]>(() => {
     const starArray: Star[] = [];
     const animationClasses = ["animate-twinkle", "animate-twinkle-slow", "animate-twinkle-fast"];
+    const moveClasses = ["animate-star-move-slow", "animate-star-move-mid", "animate-star-move-fast"];
     
     for (let i = 0; i < 100; i++) {
       starArray.push({
@@ -21,8 +23,9 @@ const StarField = () => {
         x: Math.random() * 100,
         y: Math.random() * 100,
         size: Math.random() * 2 + 1,
-        animationDelay: `${Math.random() * 5}s`,
-        animationClass: animationClasses[Math.floor(Math.random() * animationClasses.length)],
+        twinkleDelay: `${Math.random() * 5}s`,
+        twinkleClass: animationClasses[Math.floor(Math.random() * animationClasses.length)],
+        moveClass: moveClasses[Math.floor(Math.random() * moveClasses.length)],
       });
     }
     return starArray;
@@ -33,22 +36,39 @@ const StarField = () => {
       {stars.map((star) => (
         <div
           key={star.id}
-          className={`star ${star.animationClass}`}
+          className={`absolute ${star.moveClass}`}
           style={{
             left: `${star.x}%`,
             top: `${star.y}%`,
-            width: `${star.size}px`,
-            height: `${star.size}px`,
-            animationDelay: star.animationDelay,
           }}
-        />
+        >
+          <div
+            className={`star ${star.twinkleClass}`}
+            style={{
+              width: `${star.size}px`,
+              height: `${star.size}px`,
+              animationDelay: star.twinkleDelay,
+              position: "static" 
+            }}
+          />
+        </div>
       ))}
       {/* Larger glowing stars */}
-      <div className="star star-large animate-twinkle-slow" style={{ left: "10%", top: "15%" }} />
-      <div className="star star-large animate-twinkle" style={{ left: "85%", top: "25%" }} />
-      <div className="star star-large animate-twinkle-fast" style={{ left: "25%", top: "60%" }} />
-      <div className="star star-large animate-twinkle-slow" style={{ left: "70%", top: "70%" }} />
-      <div className="star star-large animate-twinkle" style={{ left: "45%", top: "10%" }} />
+      <div className="absolute animate-star-move-slow" style={{ left: "10%", top: "15%" }}>
+        <div className="star star-large animate-twinkle-slow" style={{ position: "static" }} />
+      </div>
+      <div className="absolute animate-star-move-mid" style={{ left: "85%", top: "25%" }}>
+        <div className="star star-large animate-twinkle" style={{ position: "static" }} />
+      </div>
+      <div className="absolute animate-star-move-fast" style={{ left: "25%", top: "60%" }}>
+        <div className="star star-large animate-twinkle-fast" style={{ position: "static" }} />
+      </div>
+      <div className="absolute animate-star-move-slow" style={{ left: "70%", top: "70%" }}>
+        <div className="star star-large animate-twinkle-slow" style={{ position: "static" }} />
+      </div>
+      <div className="absolute animate-star-move-mid" style={{ left: "45%", top: "10%" }}>
+        <div className="star star-large animate-twinkle" style={{ position: "static" }} />
+      </div>
     </div>
   );
 };

@@ -22,6 +22,12 @@ const Clouds = () => {
           <ellipse cx="90" cy="35" rx="50" ry="28" fill="hsl(var(--cloud-dark))" />
           <ellipse cx="130" cy="45" rx="35" ry="20" fill="hsl(var(--cloud-dark))" />
         </svg>
+        <svg className="cloud cloud-10 animate-cloud-drift-slow" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="60" cy="50" rx="50" ry="25" fill="hsl(var(--cloud-dark))" />
+          <ellipse cx="100" cy="40" rx="45" ry="30" fill="hsl(var(--cloud-dark))" />
+          <ellipse cx="140" cy="50" rx="40" ry="22" fill="hsl(var(--cloud-dark))" />
+          <ellipse cx="80" cy="55" rx="55" ry="20" fill="hsl(var(--cloud-dark))" />
+        </svg>
       </div>
 
       {/* Middle layer clouds */}
@@ -37,6 +43,12 @@ const Clouds = () => {
           <ellipse cx="110" cy="45" rx="50" ry="32" fill="hsl(var(--cloud-light) / 0.9)" />
           <ellipse cx="160" cy="55" rx="45" ry="25" fill="hsl(var(--cloud-light) / 0.8)" />
           <ellipse cx="90" cy="60" rx="60" ry="22" fill="hsl(var(--cloud-light) / 0.7)" />
+        <svg className="cloud cloud-11 animate-cloud-drift" viewBox="0 0 220 90" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="70" cy="55" rx="55" ry="28" fill="hsl(var(--cloud-light) / 0.8)" />
+          <ellipse cx="110" cy="45" rx="50" ry="32" fill="hsl(var(--cloud-light) / 0.9)" />
+          <ellipse cx="160" cy="55" rx="45" ry="25" fill="hsl(var(--cloud-light) / 0.8)" />
+          <ellipse cx="90" cy="60" rx="60" ry="22" fill="hsl(var(--cloud-light) / 0.7)" />
+        </svg>
         </svg>
         <svg className="cloud cloud-4 animate-cloud-drift" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
           <ellipse cx="55" cy="50" rx="45" ry="25" fill="hsl(var(--cloud-light) / 0.8)" />
@@ -58,6 +70,12 @@ const Clouds = () => {
           <ellipse cx="130" cy="50" rx="60" ry="38" fill="hsl(var(--cloud-light))" />
           <ellipse cx="180" cy="60" rx="50" ry="28" fill="hsl(var(--cloud-light))" />
           <ellipse cx="100" cy="70" rx="70" ry="25" fill="hsl(var(--cloud-light) / 0.9)" />
+        <svg className="cloud cloud-12" viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="80" cy="60" rx="65" ry="32" fill="hsl(var(--cloud-light))" />
+          <ellipse cx="130" cy="50" rx="60" ry="38" fill="hsl(var(--cloud-light))" />
+          <ellipse cx="180" cy="60" rx="50" ry="28" fill="hsl(var(--cloud-light))" />
+          <ellipse cx="100" cy="70" rx="70" ry="25" fill="hsl(var(--cloud-light) / 0.9)" />
+        </svg>
         </svg>
         <svg className="cloud cloud-6" viewBox="0 0 200 85" xmlns="http://www.w3.org/2000/svg">
           <ellipse cx="60" cy="55" rx="50" ry="28" fill="hsl(var(--cloud-light))" />
