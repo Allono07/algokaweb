@@ -212,6 +212,13 @@
   }
 }
 
+@media only screen and (max-width: 430px) {
+  /* iPhone 14 Pro Max adjustments */
+  .landing-content {
+    padding-top: 100px;
+  }
+}
+
 
 
 
