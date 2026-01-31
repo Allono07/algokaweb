@@ -17,7 +17,8 @@ const StarField = () => {
     const animationClasses = ["animate-twinkle", "animate-twinkle-slow", "animate-twinkle-fast"];
     const moveClasses = ["animate-star-move-slow", "animate-star-move-mid", "animate-star-move-fast"];
     
-    for (let i = 0; i < 100; i++) {
+    // Increased star count from 100 to 200 for higher concentration
+    for (let i = 0; i < 200; i++) {
       starArray.push({
         id: i,
         x: Math.random() * 100,

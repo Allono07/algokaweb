@@ -32,7 +32,7 @@ const Navbar = () => {
             <li key={item.label}>
               <a href={item.href} className="navbar-link">
                 <span>{item.label}</span>
-                <span className="navbar-link-underline" />
+                {/* <span className="navbar-link-underline" /> */}
               </a>
             </li>
           ))}
