@@ -15,9 +15,9 @@ const Landing = () => {
   
   // Motion values for rocket position
   const progress = useMotionValue(0);
-  const rocketX = useTransform(progress, [0, 0.5, 1], ["5%", "30%", "45%"]);
-  const rocketY = useTransform(progress, [0, 0.5, 1], ["80%", "50%", "15%"]);
-  const rocketRotation = useTransform(progress, [0, 0.3, 0.6, 1], [-15, -25, -30, -35]);
+  const rocketX = useTransform(progress, [0, 0.5, 1], ["10%", "45%", "80%"]);
+  const rocketY = useTransform(progress, [0, 0.5, 1], ["80%", "50%", "10%"]);
+  const rocketRotation = useTransform(progress, [0, 0.5, 1], [15, 30, 45]);
   
   // Scroll-based animation
   const { scrollYProgress } = useScroll({
@@ -57,9 +57,9 @@ const Landing = () => {
 
   // Stage label positions (relative to animation container)
   const labelPositions = {
-    build: { x: 120, y: 520 },
-    solve: { x: 280, y: 340 },
-    think: { x: 400, y: 160 },
+    build: { x: "20%", y: "74%" },
+    solve: { x: "50%", y: "48%" },
+    think: { x: "70%", y: "15%" },
   };
 
   return (
@@ -78,7 +78,7 @@ const Landing = () => {
               </linearGradient>
             </defs>
             <path
-              d="M 50 650 Q 100 400 250 350 Q 400 300 350 100"
+              d="M 50 650 Q 100 400 250 350 Q 400 300 450 100"
               fill="none"
               stroke="url(#pathGradient)"
               strokeWidth="2"
@@ -126,7 +126,7 @@ const Landing = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
           >
             <h1 className="landing-heading">
-              <span className="landing-heading-accent">AI-Powered</span>
+              <span className="landing-heading-accent">ALGOKA</span>
               <br />
               Solutions for
               <br />
@@ -152,7 +152,7 @@ const Landing = () => {
       <Clouds />
 
       {/* Replay button */}
-      <motion.button
+      {/* <motion.button
         className="replay-btn"
         onClick={() => {
           progress.set(0);
@@ -170,7 +170,7 @@ const Landing = () => {
         transition={{ delay: 5 }}
       >
         ↻ Replay
-      </motion.button>
+      </motion.button> */}
     </section>
   );
 };

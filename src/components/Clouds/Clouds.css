@@ -77,6 +77,28 @@
   animation-delay: 7s;
 }
 
+.cloud-7 {
+  width: 240px;
+  height: 100px;
+  margin-bottom: -10px;
+  animation-delay: 1s;
+}
+
+.cloud-8 {
+  width: 280px;
+  height: 110px;
+  margin-bottom: -5px;
+  animation-delay: 2s;
+}
+
+.cloud-9 {
+  width: 320px;
+  height: 130px;
+  margin-bottom: -15px;
+  animation: cloud-drift 30s ease-in-out infinite;
+  animation-delay: 4s;
+}
+
 @keyframes cloud-drift {
   0% {
     transform: translateX(0) scale(1);
@@ -94,17 +116,17 @@
     height: 120px;
   }
 
-  .cloud-1, .cloud-2 {
+  .cloud-1, .cloud-2, .cloud-7 {
     width: 200px;
     height: 80px;
   }
 
-  .cloud-3, .cloud-4 {
+  .cloud-3, .cloud-4, .cloud-8 {
     width: 220px;
     height: 90px;
   }
 
-  .cloud-5, .cloud-6 {
+  .cloud-5, .cloud-6, .cloud-9 {
     width: 250px;
     height: 100px;
   }

@@ -4,7 +4,7 @@ import "./StageLabels.css";
 interface StageLabelProps {
   label: string;
   isVisible: boolean;
-  position: { x: number; y: number };
+  position: { x: number | string; y: number | string };
   delay?: number;
 }
 
@@ -31,9 +31,9 @@ const StageLabel = ({ label, isVisible, position, delay = 0 }: StageLabelProps) 
 interface StageLabelsProps {
   progress: number; // 0 to 1
   positions: {
-    build: { x: number; y: number };
-    solve: { x: number; y: number };
-    think: { x: number; y: number };
+    build: { x: number | string; y: number | string };
+    solve: { x: number | string; y: number | string };
+    think: { x: number | string; y: number | string };
   };
 }
 
