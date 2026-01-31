@@ -46,7 +46,7 @@ const StageLabels = ({ progress, positions }: StageLabelsProps) => {
   return (
     <div className="stage-labels-container">
       <StageLabel
-        label="BUILD"
+        label="THINK"
         isVisible={buildVisible}
         position={positions.build}
         delay={0}
@@ -58,7 +58,7 @@ const StageLabels = ({ progress, positions }: StageLabelsProps) => {
         delay={0.1}
       />
       <StageLabel
-        label="THINK"
+        label="BUILD"
         isVisible={thinkVisible}
         position={positions.think}
         delay={0.2}

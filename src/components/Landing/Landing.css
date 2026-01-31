@@ -157,13 +157,14 @@
 
 @media (max-width: 768px) {
   .landing-content {
-    flex-direction: column-reverse;
+    flex-direction: column;
     padding-top: 60px;
+    padding-bottom: 0px;
   }
 
   .landing-animation {
     flex: none;
-    min-height: 400px;
+    min-height: 320px;
     width: 100%;
   }
 
@@ -171,7 +172,7 @@
     flex: none;
     width: 100%;
     text-align: center;
-    padding: 2rem 1.5rem;
+    padding: 0 1.5rem 4rem 1.5rem;
   }
 
   .landing-text-content {
