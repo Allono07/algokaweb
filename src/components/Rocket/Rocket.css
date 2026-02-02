@@ -26,3 +26,13 @@
     height: 180px;
   }
 }
+
+
+@media only screen and (max-width: 430px) {
+  /* iPhone 14 Pro Max + other large iPhones */
+  .rocket-wrapper {
+    width: 90px;
+    height: 180px;
+  }
+
+}
