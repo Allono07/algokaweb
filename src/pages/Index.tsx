@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar/Navbar";
 import Landing from "@/components/Landing/Landing";
 import About from "@/components/About/About";
@@ -8,6 +9,7 @@ import StarField from "@/components/StarField/StarField";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -16,6 +18,22 @@ const Index = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (isLoading) return;
+
+    if (!location.hash) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    const targetId = location.hash.replace("#", "");
+    const target = document.getElementById(targetId);
+
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [isLoading, location.hash]);
 
   if (isLoading) {
     return (

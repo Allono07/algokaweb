@@ -1,24 +1,35 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { useLocation } from "react-router-dom";
 import "./Navbar.css";
 
 const navItems = [
-  { label: "HOME", href: "#home" },
-  { label: "ABOUT", href: "#about" },
-  { label: "PROJECTS", href: "#projects" },
-  { label: "CONTACT", href: "#contact" },
+  { label: "HOME", href: "#home", type: "anchor" },
+  { label: "ABOUT", href: "#about", type: "anchor" },
+  { label: "PROJECTS", href: "#projects", type: "anchor" },
+  { label: "SOLUTIONS", href: "/solutions", type: "route" },
+  { label: "CONTACT", href: "#contact", type: "anchor" },
 ];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const isSolutionsPage = location.pathname === "/solutions";
+
+  const resolveHref = (href: string, type: string) => {
+    if (type === "route") {
+      return href;
+    }
+    return isSolutionsPage ? `/${href}` : href;
+  };
 
   return (
     <nav className="navbar">
       <div className="navbar-container">
         {/* Logo */}
         <motion.a
-          href="#"
+          href="/"
           className="navbar-logo"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -31,7 +42,7 @@ const Navbar = () => {
           {navItems.map((item) => (
             <li key={item.label} className={item.label === "CONTACT" ? "navbar-item-contact" : ""}>
               <a 
-                href={item.href} 
+                href={resolveHref(item.href, item.type)} 
                 className={`navbar-link ${item.label === "CONTACT" ? "navbar-btn-contact" : ""}`}
               >
                 <span>{item.label}</span>
@@ -70,7 +81,7 @@ const Navbar = () => {
                   transition={{ delay: index * 0.1 }}
                 >
                   <a
-                    href={item.href}
+                    href={resolveHref(item.href, item.type)}
                     className="navbar-mobile-link"
                     onClick={() => setIsOpen(false)}
                   >
