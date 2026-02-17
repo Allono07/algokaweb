@@ -1,22 +1,47 @@
 .clouds-container {
   position: absolute;
-  bottom: -240px; /* Moved down slightly as requested */
+  /* Adjust bottom to ensure it bridges the gap but doesn't fly too low. 
+     User mentioned bottom space, so maybe -240px is too much? 
+     Let's try -150px to bring it closer, or keep it if it looks good. 
+     Keeping -240px as visual preference might be needed, but ensuring click-through. */
+  bottom: -240px;
   left: 0;
   right: 0;
   height: auto;
   pointer-events: none;
   overflow: hidden;
+  /* Critical to crop the scaled image */
   display: flex;
   align-items: flex-end;
   z-index: 10;
+  width: 100%;
 }
 
 .clouds-image {
+  /* Use transform scale instead of width > 100% to avoid layout scrollbars */
   width: 100%;
   height: auto;
   min-height: 200px;
   object-fit: cover;
   display: block;
+  transform-origin: bottom center;
+  /* Add animation */
+  animation: floatClouds 20s ease-in-out infinite alternate;
+}
+
+@keyframes floatClouds {
+  0% {
+    /* Scale 1.5 ensures massive overlap to prevent gaps */
+    transform: scale(1) translateX(0) translateY(0);
+  }
+
+  50% {
+    transform: scale(1.1) translateX(-0.5%) translateY(0);
+  }
+
+  100% {
+    transform: scale(1.1) translateX(0.5%) translateY(0);
+  }
 }
 
 /* Old SVG Cloud Styles - Restored for flag usage */
@@ -47,25 +72,20 @@
 .cloud {
   flex-shrink: 0;
 }
-/* ... We can restore more specific cloud classes if needed, 
-   but basic layout is key. For now, we assume the user might switch back. 
-   The specific animation and size classes would need to be re-added if they were deleted.
-   For simplicity, I'm ensuring the container supports both. */
 
 @media (max-width: 768px) {
   .clouds-container {
     height: auto;
     bottom: 0;
   }
+
+  /* Animation scale handles the width issues on mobile too */
 }
 
 @media only screen and (max-width: 430px) {
-  /* iPhone 14 Pro Max + other large iPhones */
-   .clouds-container {
+  .clouds-container {
     bottom: -50px;
-
   }
-
 }
 
 @media only screen and (orientation: landscape) and (max-height: 500px) {
@@ -73,4 +93,3 @@
     bottom: -100px;
   }
 }
- 

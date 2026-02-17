@@ -15,18 +15,18 @@ const Landing = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(animationRef, { amount: 0.3 });
-  
+
   // Motion values for rocket position
   const progress = useMotionValue(0);
-  
+
   // Responsive animation values
   const rocketXRange = isMobile ? ["25%", "50%", "75%"] : ["10%", "45%", "80%"];
   const rocketYRange = isMobile ? ["80%", "45%", "15%"] : ["80%", "50%", "15%"];
-  
+
   const rocketX = useTransform(progress, [0, 0.5, 1], rocketXRange);
   const rocketY = useTransform(progress, [0, 0.5, 1], ["80%", "50%", "10%"]);
   const rocketRotation = useTransform(progress, [0, 0.5, 1], [15, 30, 45]);
-  
+
   // Scroll-based animation
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -69,14 +69,36 @@ const Landing = () => {
     solve: { x: "40%", y: "40%" },
     think: { x: "50%", y: "15%" },
   } : {
- build: { x: "30%", y: "65%" },
+    build: { x: "30%", y: "65%" },
     solve: { x: "50%", y: "40%" },
     think: { x: "70%", y: "15%" },
   };
 
-  const pathD = isMobile 
-    ? "M 50 500 Q 100 350 300 100" 
+  const pathD = isMobile
+    ? "M 50 500 Q 100 350 300 100"
     : "M 50 650 Q 100 400 250 350 Q 400 300 450 100";
+
+  // Launch vector state
+  const [launchVector, setLaunchVector] = useState({ x: 0, y: -1000 });
+
+  const handleRocketClick = () => {
+    const r = rocketRotation.get();
+    // Assuming 0 rotation is straight up. 
+    // Rotation is clockwise in degrees.
+    // We want to fly "forward" in the direction of rotation.
+    // degrees to radians
+    const rad = (r * Math.PI) / 180;
+
+    // Calculate vector (fly distance ~ 150vh effectively)
+    // 0 deg -> sin(0)=0, cos(0)=1 -> x=0, y=-dist (Up)
+    // 90 deg -> sin(90)=1, cos(90)=0 -> x=dist, y=0 (Right)
+    const dist = window.innerHeight * 1.5;
+    const dx = Math.sin(rad) * dist;
+    const dy = -Math.cos(rad) * dist;
+
+    setLaunchVector({ x: dx, y: dy });
+    setIsLaunching(true);
+  };
 
   const handleExploreClick = () => {
     document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
@@ -84,7 +106,7 @@ const Landing = () => {
 
   return (
     <section className="landing" ref={containerRef} id="home">
-      
+
       <div className="landing-content">
         {/* Left side - Animation area */}
         <div className="landing-animation" ref={animationRef}>
@@ -120,19 +142,19 @@ const Landing = () => {
           >
             <motion.div
               className="rocket-float-wrapper"
-              animate={isLaunching ? { 
-                y: "-150vh", // Fly completely off screen
-                x: "20vw",   // Slight horizontal trajectory
+              animate={isLaunching ? {
+                x: launchVector.x,
+                y: launchVector.y,
                 scale: 0.5,  // Fly away into distance
                 opacity: 0
-              } : { 
+              } : {
                 y: [0, -8, 0],
                 x: 0,
                 scale: 1,
                 opacity: 1
               }}
-              transition={isLaunching ? { 
-                duration: 1.5, 
+              transition={isLaunching ? {
+                duration: 1.5,
                 ease: [0.4, 0, 0.2, 1] // Accelerate out (easeIn)
               } : {
                 duration: 3,
@@ -145,7 +167,7 @@ const Landing = () => {
                 onHoverStart={() => setIsRocketHovered(true)}
                 onHoverEnd={() => setIsRocketHovered(false)}
                 rotation={rocketRotation.get()}
-                onClick={() => setIsLaunching(true)}
+                onClick={handleRocketClick}
               />
             </motion.div>
           </motion.div>
@@ -166,7 +188,7 @@ const Landing = () => {
             </h1>
             <p className="landing-subheading">
               We build intelligent systems that transform your business.
-             
+
             </p>
             <motion.button
               onClick={handleExploreClick}
@@ -174,7 +196,7 @@ const Landing = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-               <svg className="svgIcon" viewBox="0 0 512 512" height="1em" xmlns="http://www.w3.org/2000/svg"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm50.7-186.9L162.4 380.6c-19.4 7.5-38.5-11.6-31-31l55.5-144.3c3.3-8.5 9.9-15.1 18.4-18.4l144.3-55.5c19.4-7.5 38.5 11.6 31 31L325.1 306.7c-3.2 8.5-9.9 15.1-18.4 18.4zM288 256a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"></path></svg>
+              <svg className="svgIcon" viewBox="0 0 512 512" height="1em" xmlns="http://www.w3.org/2000/svg"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm50.7-186.9L162.4 380.6c-19.4 7.5-38.5-11.6-31-31l55.5-144.3c3.3-8.5 9.9-15.1 18.4-18.4l144.3-55.5c19.4-7.5 38.5 11.6 31 31L325.1 306.7c-3.2 8.5-9.9 15.1-18.4 18.4zM288 256a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"></path></svg>
               Explore
             </motion.button>
           </motion.div>

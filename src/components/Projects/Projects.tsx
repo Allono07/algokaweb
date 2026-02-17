@@ -21,6 +21,16 @@ const PROJECTS_DATA: Project[] = [
     title: "Project Gamma",
     description: "Next-gen e-commerce experience with VR integration for immersive product previews.",
     tags: ["VR", "Three.js", "Commerce"]
+  },
+  {
+    title: "App Development",
+    description: "Building robust mobile applications for iOS and Android.",
+    tags: ["Mobile", "React Native", "Flutter"]
+  },
+  {
+    title: "Web Development",
+    description: "Creating responsive and scalable web applications.",
+    tags: ["Web", "React", "Next.js"]
   }
 ];
 

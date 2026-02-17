@@ -33,16 +33,18 @@ const Navbar = () => {
           className="navbar-logo"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          style={{ display: 'flex', alignItems: 'flex-start', gap: '-0.5rem' }}
         >
           ALGOKA
+          <img src="/algoka2.png" alt="Logo" style={{ height: '1.5em', width: 'auto' }} />
         </motion.a>
 
         {/* Desktop Navigation */}
         <ul className="navbar-links">
           {navItems.map((item) => (
             <li key={item.label} className={item.label === "CONTACT" ? "navbar-item-contact" : ""}>
-              <a 
-                href={resolveHref(item.href, item.type)} 
+              <a
+                href={resolveHref(item.href, item.type)}
                 className={`navbar-link ${item.label === "CONTACT" ? "navbar-btn-contact" : ""}`}
               >
                 <span>{item.label}</span>

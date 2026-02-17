@@ -1,6 +1,7 @@
 import "./Solutions.css";
 import Navbar from "@/components/Navbar/Navbar";
 import StarField from "@/components/StarField/StarField";
+import Footer from "@/components/Footer/Footer";
 
 const Solutions = () => {
   return (
@@ -114,6 +115,7 @@ const Solutions = () => {
           </a>
         </div>
       </section>
+      <Footer />
     </main>
   );
 };

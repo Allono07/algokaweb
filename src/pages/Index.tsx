@@ -6,18 +6,26 @@ import About from "@/components/About/About";
 import Projects from "@/components/Projects/Projects";
 import Contact from "@/components/Contact/Contact";
 import StarField from "@/components/StarField/StarField";
+import Footer from "@/components/Footer/Footer";
+import { USE_AGENCY_THEME } from "@/config/theme";
+import AgencyHome from "./AgencyHome";
 
 const Index = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(() => {
+    // Check if user has already visited in this session
+    return !sessionStorage.getItem("hasVisited");
+  });
   const location = useLocation();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
+    if (isLoading) {
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+        sessionStorage.setItem("hasVisited", "true");
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [isLoading]);
 
   useEffect(() => {
     if (isLoading) return;
@@ -34,6 +42,10 @@ const Index = () => {
       target.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }, [isLoading, location.hash]);
+
+  if (USE_AGENCY_THEME) {
+    return <AgencyHome />;
+  }
 
   if (isLoading) {
     return (
@@ -54,6 +66,7 @@ const Index = () => {
       <About />
       <Projects />
       <Contact />
+      <Footer />
     </main>
   );
 };
