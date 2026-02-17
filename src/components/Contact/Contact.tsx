@@ -17,20 +17,20 @@ const Contact = () => {
             <div className="contact-list">
               <div className="contact-item">
                 <span className="contact-item-label">Phone</span>
-                <a className="contact-item-value" href="tel:+15551234567">
-                  +1 (555) 123-4567
+                <a className="contact-item-value" href="tel:+91 97602 27911">
+                  +91 97602 27911
                 </a>
               </div>
             <div className="contact-item">
               <span className="contact-item-label">Email</span>
-              <a className="contact-item-link" href="mailto:hello@algoka.ai">
+              <a className="contact-item-link" href="mailto:algoka.io@gmail.com">
                 <span className="contact-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
                     <path d="M4 6.5h16a1.5 1.5 0 0 1 1.5 1.5v8a1.5 1.5 0 0 1-1.5 1.5H4A1.5 1.5 0 0 1 2.5 16V8A1.5 1.5 0 0 1 4 6.5Z" fill="none" stroke="currentColor" strokeWidth="1.5" />
                     <path d="m3.5 7.5 8.5 6 8.5-6" fill="none" stroke="currentColor" strokeWidth="1.5" />
                   </svg>
                 </span>
-                <span className="contact-item-text">hello@algoka.ai</span>
+                <span className="contact-item-text">algoka.io@gmail.com</span>
               </a>
             </div>
             <div className="contact-item">
@@ -71,7 +71,7 @@ const Contact = () => {
             </div>
               <div className="contact-item">
                 <span className="contact-item-label">Location</span>
-                <span className="contact-item-value">San Francisco, CA</span>
+                <span className="contact-item-value">Bengaluru, KA - India</span>
               </div>
             </div>
           </div>
