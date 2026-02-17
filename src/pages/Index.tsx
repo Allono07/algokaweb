@@ -10,6 +10,8 @@ import Footer from "@/components/Footer/Footer";
 import { USE_AGENCY_THEME } from "@/config/theme";
 import AgencyHome from "./AgencyHome";
 
+import Preloader from "@/components/Preloader/Preloader";
+
 const Index = () => {
   const [isLoading, setIsLoading] = useState(() => {
     // Check if user has already visited in this session
@@ -19,11 +21,38 @@ const Index = () => {
 
   useEffect(() => {
     if (isLoading) {
-      const timer = setTimeout(() => {
-        setIsLoading(false);
-        sessionStorage.setItem("hasVisited", "true");
-      }, 2000);
-      return () => clearTimeout(timer);
+      const preloadImages = async () => {
+        const images = [
+          "/algoka2.png",
+          "/clouds.png",
+          "/rocket.png",
+          "/image2.png"
+        ];
+
+        const loadPromises = images.map((src) => {
+          return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.src = src;
+            img.onload = resolve;
+            img.onerror = resolve; // Continue even if one fails
+          });
+        });
+
+        // Add a minimum delay of 1.5s to show the flipper animation
+        // This prevents flickering if images are already cached
+        const minDelay = new Promise(resolve => setTimeout(resolve, 1500));
+
+        try {
+          await Promise.all([...loadPromises, minDelay]);
+        } catch (error) {
+          console.error("Error preloading images:", error);
+        } finally {
+          setIsLoading(false);
+          sessionStorage.setItem("hasVisited", "true");
+        }
+      };
+
+      preloadImages();
     }
   }, [isLoading]);
 
@@ -48,14 +77,7 @@ const Index = () => {
   }
 
   if (isLoading) {
-    return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-background">
-        <div className="flex flex-col items-center gap-4">
-          <div className="h-12 w-12 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
-          <div className="text-xl font-semibold text-primary animate-pulse">Loading...</div>
-        </div>
-      </div>
-    );
+    return <Preloader />;
   }
 
   return (
