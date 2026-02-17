@@ -7,14 +7,14 @@ const Clouds = () => {
   if (USE_IMAGE_CLOUDS) {
     return (
       <div className="clouds-container">
-        <img src="/clouds.png" alt="Clouds" className="clouds-image" />
+        <img src="/clouds.webp" alt="Clouds" className="clouds-image" />
       </div>
     );
   }
 
   // Restored Old SVG Clouds
   const cloudPath = "M25,60 a20,20 0 0,1 0,-40 h50 a70,70 0 0,1 50,70 v10 z";
-  
+
   return (
     <div className="clouds-container old-clouds-impl">
       <div className="cloud-layer cloud-layer-back">

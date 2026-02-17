@@ -36,7 +36,7 @@ const Navbar = () => {
           style={{ display: 'flex', alignItems: 'flex-start', gap: '-0.5rem' }}
         >
           ALGOKA
-          <img src="/algoka2.png" alt="Logo" style={{ height: '1.5em', width: 'auto' }} />
+          <img src="/algoka2.webp" alt="Logo" style={{ height: '1.5em', width: 'auto' }} />
         </motion.a>
 
         {/* Desktop Navigation */}

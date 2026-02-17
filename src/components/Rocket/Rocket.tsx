@@ -24,9 +24,9 @@ const Rocket = ({ isHovered, onHoverStart, onHoverEnd, rotation = 0, onClick }: 
     >
       <div className="rocket">
         {/* Rocket Image - User providing rocket.png in public folder */}
-        <img 
-          src="/rocket.png" 
-          alt="Rocket" 
+        <img
+          src="/rocket.webp"
+          alt="Rocket"
           className="rocket-img"
         />
 

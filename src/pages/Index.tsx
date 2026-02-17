@@ -23,10 +23,10 @@ const Index = () => {
     if (isLoading) {
       const preloadImages = async () => {
         const images = [
-          "/algoka2.png",
-          "/clouds.png",
-          "/rocket.png",
-          "/image2.png"
+          "/algoka2.webp",
+          "/clouds.webp",
+          "/rocket.webp",
+          "/image2.webp"
         ];
 
         const loadPromises = images.map((src) => {
