@@ -79,6 +79,20 @@ const Solutions = () => {
             </p>
             <span className="solutions-card-tag">Operations</span>
           </article>
+          <article className="solutions-card">
+            <h3>App Development</h3>
+            <p>
+              Building robust mobile applications for iOS and Android, ensuring seamless performance and user experience.
+            </p>
+            <span className="solutions-card-tag">Mobile</span>
+          </article>
+          <article className="solutions-card">
+            <h3>Web Development</h3>
+            <p>
+              Creating responsive, scalable, and high-performance web applications tailored to your business needs.
+            </p>
+            <span className="solutions-card-tag">Web</span>
+          </article>
         </div>
       </section>
 

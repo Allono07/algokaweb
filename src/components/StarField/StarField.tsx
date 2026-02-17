@@ -1,4 +1,5 @@
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
+import { useMotionValue, useSpring, motion } from "framer-motion";
 import "./StarField.css";
 
 interface Star {
@@ -12,11 +13,31 @@ interface Star {
 }
 
 const StarField = () => {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { damping: 50, stiffness: 400 };
+  const x = useSpring(mouseX, springConfig);
+  const y = useSpring(mouseY, springConfig);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      const moveX = (clientX - window.innerWidth / 2) * -0.05; // -5% movement
+      const moveY = (clientY - window.innerHeight / 2) * -0.05;
+      mouseX.set(moveX);
+      mouseY.set(moveY);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
   const stars = useMemo<Star[]>(() => {
     const starArray: Star[] = [];
     const animationClasses = ["animate-twinkle", "animate-twinkle-slow", "animate-twinkle-fast"];
     const moveClasses = ["animate-star-move-slow", "animate-star-move-mid", "animate-star-move-fast"];
-    
+
     // Increased star count from 100 to 200 for higher concentration
     for (let i = 0; i < 200; i++) {
       starArray.push({
@@ -33,7 +54,10 @@ const StarField = () => {
   }, []);
 
   return (
-    <div className="starfield">
+    <motion.div
+      className="starfield"
+      style={{ x, y }}
+    >
       {stars.map((star) => (
         <div
           key={star.id}
@@ -49,7 +73,7 @@ const StarField = () => {
               width: `${star.size}px`,
               height: `${star.size}px`,
               animationDelay: star.twinkleDelay,
-              position: "static" 
+              position: "static"
             }}
           />
         </div>
@@ -73,29 +97,28 @@ const StarField = () => {
 
       {/* Comets */}
       <div className="absolute animate-comet" style={{ animationDelay: "2s", animationDuration: "28s", top: 0, left: 0 }}>
-         <div className="relative" style={{ transform: "rotate(135deg)" }}>
-            <div className="comet">
-              <div className="comet-tail" />
-            </div>
-         </div>
+        <div className="relative" style={{ transform: "rotate(135deg)" }}>
+          <div className="comet">
+            <div className="comet-tail" />
+          </div>
+        </div>
       </div>
-       <div className="absolute animate-comet" style={{ animationDelay: "15s", animationDuration: "35s", top: "-20%", left: "10%" }}>
-         <div className="relative" style={{ transform: "rotate(135deg)" }}>
-            <div className="comet">
-              <div className="comet-tail" />
-            </div>
-         </div>
+      <div className="absolute animate-comet" style={{ animationDelay: "15s", animationDuration: "35s", top: "-20%", left: "10%" }}>
+        <div className="relative" style={{ transform: "rotate(135deg)" }}>
+          <div className="comet">
+            <div className="comet-tail" />
+          </div>
+        </div>
       </div>
-       <div className="absolute animate-comet" style={{ animationDelay: "8s", animationDuration: "22s", top: "30%", left: "-20%" }}>
-         <div className="relative" style={{ transform: "rotate(135deg)" }}>
-            <div className="comet">
-              <div className="comet-tail" />
-            </div>
-         </div>
+      <div className="absolute animate-comet" style={{ animationDelay: "8s", animationDuration: "22s", top: "30%", left: "-20%" }}>
+        <div className="relative" style={{ transform: "rotate(135deg)" }}>
+          <div className="comet">
+            <div className="comet-tail" />
+          </div>
+        </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
-
 
 export default StarField;

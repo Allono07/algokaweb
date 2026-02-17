@@ -20,7 +20,6 @@ const Rocket = ({ isHovered, onHoverStart, onHoverEnd, rotation = 0, onClick }: 
       whileHover={{ scale: 1.05 }}
       onClick={onClick}
       whileTap={{ scale: 0.95 }}
-      cursor="pointer"
     >
       <div className="rocket">
         {/* Rocket Image - User providing rocket.png in public folder */}
