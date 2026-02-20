@@ -15,49 +15,53 @@ import Preloader from "@/components/Preloader/Preloader";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(() => {
-    if (IS_MODERN_THEME) return false;
-    // Check if user has already visited in this session
+    // Check if user has already visited in this session.
     return !sessionStorage.getItem("hasVisited");
   });
   const location = useLocation();
 
   useEffect(() => {
-    if (IS_MODERN_THEME) return;
+    if (!isLoading) return;
 
-    if (isLoading) {
-      const preloadImages = async () => {
-        const images = [
-          "/algoka2.webp",
-          "/clouds.webp",
-          "/rocket.webp",
-          "/image2.webp"
-        ];
+    let isActive = true;
+    const minDelayMs = IS_MODERN_THEME ? 1200 : 1500;
 
-        const loadPromises = images.map((src) => {
-          return new Promise((resolve, reject) => {
+    const preloadImages = async () => {
+      if (IS_MODERN_THEME) return;
+
+      const images = ["/algoka2.webp", "/clouds.webp", "/rocket.webp", "/image2.webp"];
+
+      const loadPromises = images.map(
+        (src) =>
+          new Promise<void>((resolve) => {
             const img = new Image();
             img.src = src;
-            img.onload = resolve;
-            img.onerror = resolve; // Continue even if one fails
-          });
-        });
+            img.onload = () => resolve();
+            img.onerror = () => resolve();
+          }),
+      );
 
-        // Add a minimum delay of 1.5s to show the flipper animation
-        // This prevents flickering if images are already cached
-        const minDelay = new Promise(resolve => setTimeout(resolve, 1500));
+      await Promise.all(loadPromises);
+    };
 
-        try {
-          await Promise.all([...loadPromises, minDelay]);
-        } catch (error) {
-          console.error("Error preloading images:", error);
-        } finally {
+    const startLoader = async () => {
+      try {
+        await Promise.all([preloadImages(), new Promise<void>((resolve) => window.setTimeout(resolve, minDelayMs))]);
+      } catch (error) {
+        console.error("Error while loading startup assets:", error);
+      } finally {
+        if (isActive) {
           setIsLoading(false);
           sessionStorage.setItem("hasVisited", "true");
         }
-      };
+      }
+    };
 
-      preloadImages();
-    }
+    startLoader();
+
+    return () => {
+      isActive = false;
+    };
   }, [isLoading]);
 
   useEffect(() => {

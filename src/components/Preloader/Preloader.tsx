@@ -2,41 +2,34 @@ import { motion } from "framer-motion";
 import "./Preloader.css";
 
 const Preloader = () => {
-    return (
-        <div className="preloader-container">
-            <motion.div
-                className="flipper"
-                animate={{
-                    rotateY: [0, 180, 360],
-                    scale: [1, 1.1, 1],
-                }}
-                transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                }}
-            >
-                {/* Front Face */}
-                <div className="flipper-face">
-                    <span>AL</span>
-                </div>
+  return (
+    <div className="preloader-container" aria-label="Loading">
+      <div className="preloader-ripple-wrap" aria-hidden>
+        {[0, 0.42, 0.84].map((delay) => (
+          <motion.span
+            key={delay}
+            className="preloader-ripple"
+            animate={{ scale: [0.45, 3], opacity: [0.5, 0] }}
+            transition={{
+              duration: 2.2,
+              repeat: Infinity,
+              ease: [0.22, 1, 0.36, 1],
+              delay,
+            }}
+          />
+        ))}
+      </div>
 
-                {/* Back Face */}
-                <div className="flipper-face flipper-back">
-                    <span>GO</span>
-                </div>
-            </motion.div>
-
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-                className="mt-8 text-xl font-bold tracking-widest text-primary animate-pulse"
-            >
-                LOADING...
-            </motion.div>
-        </div>
-    );
+      <motion.p
+        className="preloader-brand"
+        initial={{ opacity: 0, y: 10, letterSpacing: "0.08em" }}
+        animate={{ opacity: 1, y: 0, letterSpacing: "0.14em" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      >
+        algoka.io
+      </motion.p>
+    </div>
+  );
 };
 
 export default Preloader;
