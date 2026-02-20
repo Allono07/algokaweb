@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import "./About.css";
 
 const ABOUT_DATA = {
@@ -25,20 +26,40 @@ const ABOUT_DATA = {
 
 const About = () => {
   return (
-    <section className="about-section" id="about">
+    <motion.section
+      className="about-section"
+      id="about"
+      initial={{ opacity: 0, y: 26 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+    >
       <div className="about-container">
         <div className="about-content">
-          <div className="about-copy">
+          <motion.div
+            className="about-copy"
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          >
             <p className="about-eyebrow">{ABOUT_DATA.eyebrow}</p>
             <h2 className="about-title">{ABOUT_DATA.title}</h2>
             <p className="about-description">{ABOUT_DATA.description}</p>
 
             <ul className="about-highlights">
               {ABOUT_DATA.highlights.map((item, index) => (
-                <li key={index} className="about-highlight-item">
+                <motion.li
+                  key={index}
+                  className="about-highlight-item"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.9 }}
+                  transition={{ duration: 0.32, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                >
                   <span className="about-highlight-dot" />
                   <span>{item}</span>
-                </li>
+                </motion.li>
               ))}
             </ul>
 
@@ -50,9 +71,15 @@ const About = () => {
                 View Solutions
               </a>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="about-visual">
+          <motion.div
+            className="about-visual"
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
+          >
             <div className="about-blob" />
             <div className="about-image-frame">
               <img
@@ -73,20 +100,27 @@ const About = () => {
 
             <div className="about-stats-grid">
               {ABOUT_DATA.stats.map((stat, index) => (
-                <div key={index} className="about-stat-card">
+                <motion.div
+                  key={index}
+                  className="about-stat-card"
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.9 }}
+                  transition={{ duration: 0.36, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                >
                   <span className="about-stat-value">{stat.value}</span>
                   <span className="about-stat-label">{stat.label}</span>
-                </div>
+                </motion.div>
               ))}
             </div>
 
             <div className="about-floating-orb about-orb-one" />
             <div className="about-floating-orb about-orb-two" />
             <div className="about-floating-orb about-orb-three" />
-          </div>
+          </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

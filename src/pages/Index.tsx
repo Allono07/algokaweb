@@ -7,19 +7,23 @@ import Projects from "@/components/Projects/Projects";
 import Contact from "@/components/Contact/Contact";
 import StarField from "@/components/StarField/StarField";
 import Footer from "@/components/Footer/Footer";
-import { USE_AGENCY_THEME } from "@/config/theme";
+import PreFooterTiles from "@/components/PreFooterTiles/PreFooterTiles";
+import { IS_MODERN_THEME, USE_AGENCY_THEME } from "@/config/theme";
 import AgencyHome from "./AgencyHome";
 
 import Preloader from "@/components/Preloader/Preloader";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(() => {
+    if (IS_MODERN_THEME) return false;
     // Check if user has already visited in this session
     return !sessionStorage.getItem("hasVisited");
   });
   const location = useLocation();
 
   useEffect(() => {
+    if (IS_MODERN_THEME) return;
+
     if (isLoading) {
       const preloadImages = async () => {
         const images = [
@@ -82,12 +86,13 @@ const Index = () => {
 
   return (
     <main className="min-h-screen">
-      <StarField />
+      {!IS_MODERN_THEME && <StarField />}
       <Navbar />
       <Landing />
       <About />
       <Projects />
       <Contact />
+      <PreFooterTiles />
       <Footer />
     </main>
   );

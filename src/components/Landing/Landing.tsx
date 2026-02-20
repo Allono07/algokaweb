@@ -1,11 +1,29 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, useInView, useMotionValue, animate } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { IS_MODERN_THEME } from "@/config/theme";
 import Rocket from "../Rocket/Rocket";
 import StageLabels from "../StageLabels/StageLabels";
-import StarField from "../StarField/StarField";
 import Clouds from "../Clouds/Clouds";
 import "./Landing.css";
+
+const LANDING_TILES = [
+  {
+    title: "Pre-built Applications",
+    description: "Use applications for Banking, Healthcare, Retail, HR, IT, and Recruiting today.",
+    video: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+  },
+  {
+    title: "Application Accelerators",
+    description: "Leverage our marketplace of pre-built AI agents, templates, and integrations.",
+    video: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+  },
+  {
+    title: "Tailored Applications",
+    description: "Design and build applications on our platform across all enterprise use cases.",
+    video: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+  },
+] as const;
 
 const Landing = () => {
   const isMobile = useIsMobile();
@@ -35,6 +53,8 @@ const Landing = () => {
 
   // Auto-play animation on mount and when coming back into view
   useEffect(() => {
+    if (IS_MODERN_THEME) return;
+
     if (isInView && !hasPlayed) {
       // Small delay for initial load
       const timeout = setTimeout(() => {
@@ -50,6 +70,8 @@ const Landing = () => {
 
   // Replay animation when scrolling back
   useEffect(() => {
+    if (IS_MODERN_THEME) return;
+
     if (!isInView && hasPlayed) {
       progress.set(0);
       setHasPlayed(false);
@@ -109,69 +131,71 @@ const Landing = () => {
 
       <div className="landing-content">
         {/* Left side - Animation area */}
-        <div className="landing-animation" ref={animationRef}>
-          {/* SVG path for visual reference (optional, hidden by default) */}
-          <svg className="motion-path-svg" viewBox={isMobile ? "0 0 400 600" : "0 0 600 700"} preserveAspectRatio="xMidYMid meet">
-            <defs>
-              <linearGradient id="pathGradient" x1="0%" y1="100%" x2="0%" y2="0%">
-                <stop offset="0%" stopColor="hsl(var(--primary) / 0.1)" />
-                <stop offset="100%" stopColor="hsl(var(--primary) / 0.3)" />
-              </linearGradient>
-            </defs>
-            <path
-              d={pathD}
-              fill="none"
-              stroke="url(#pathGradient)"
-              strokeWidth="2"
-              strokeDasharray="10 5"
-              className="motion-path"
-            />
-          </svg>
+        {!IS_MODERN_THEME && (
+          <div className="landing-animation" ref={animationRef}>
+            {/* SVG path for visual reference (optional, hidden by default) */}
+            <svg className="motion-path-svg" viewBox={isMobile ? "0 0 400 600" : "0 0 600 700"} preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <linearGradient id="pathGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+                  <stop offset="0%" stopColor="hsl(var(--primary) / 0.1)" />
+                  <stop offset="100%" stopColor="hsl(var(--primary) / 0.3)" />
+                </linearGradient>
+              </defs>
+              <path
+                d={pathD}
+                fill="none"
+                stroke="url(#pathGradient)"
+                strokeWidth="2"
+                strokeDasharray="10 5"
+                className="motion-path"
+              />
+            </svg>
 
-          {/* Stage Labels */}
-          <StageLabels progress={currentProgress} positions={labelPositions} />
+            {/* Stage Labels */}
+            <StageLabels progress={currentProgress} positions={labelPositions} />
 
-          {/* Rocket following the path */}
-          <motion.div
-            className="rocket-motion-container"
-            style={{
-              left: rocketX,
-              top: rocketY,
-              zIndex: isLaunching ? 100 : 20, // Bring to front when launching
-            }}
-          >
+            {/* Rocket following the path */}
             <motion.div
-              className="rocket-float-wrapper"
-              animate={isLaunching ? {
-                x: launchVector.x,
-                y: launchVector.y,
-                scale: 0.5,  // Fly away into distance
-                opacity: 0
-              } : {
-                y: [0, -8, 0],
-                x: 0,
-                scale: 1,
-                opacity: 1
-              }}
-              transition={isLaunching ? {
-                duration: 1.5,
-                ease: [0.4, 0, 0.2, 1] // Accelerate out (easeIn)
-              } : {
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut",
+              className="rocket-motion-container"
+              style={{
+                left: rocketX,
+                top: rocketY,
+                zIndex: isLaunching ? 100 : 20, // Bring to front when launching
               }}
             >
-              <Rocket
-                isHovered={isRocketHovered}
-                onHoverStart={() => setIsRocketHovered(true)}
-                onHoverEnd={() => setIsRocketHovered(false)}
-                rotation={rocketRotation.get()}
-                onClick={handleRocketClick}
-              />
+              <motion.div
+                className="rocket-float-wrapper"
+                animate={isLaunching ? {
+                  x: launchVector.x,
+                  y: launchVector.y,
+                  scale: 0.5,  // Fly away into distance
+                  opacity: 0
+                } : {
+                  y: [0, -8, 0],
+                  x: 0,
+                  scale: 1,
+                  opacity: 1
+                }}
+                transition={isLaunching ? {
+                  duration: 1.5,
+                  ease: [0.4, 0, 0.2, 1] // Accelerate out (easeIn)
+                } : {
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                <Rocket
+                  isHovered={isRocketHovered}
+                  onHoverStart={() => setIsRocketHovered(true)}
+                  onHoverEnd={() => setIsRocketHovered(false)}
+                  rotation={rocketRotation.get()}
+                  onClick={handleRocketClick}
+                />
+              </motion.div>
             </motion.div>
-          </motion.div>
-        </div>
+          </div>
+        )}
 
         {/* Right side - Content area */}
         <div className="landing-text">
@@ -223,7 +247,43 @@ const Landing = () => {
         </div>
       </div>
 
-      <Clouds />
+      {IS_MODERN_THEME && (
+        <div className="landing-modern-tiles">
+          {LANDING_TILES.map((tile, index) => (
+            <motion.article
+              key={tile.title}
+              className="landing-modern-tile"
+              initial={{ opacity: 0, y: 26 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.55, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className="landing-modern-tile-header">
+                <h3>{tile.title}</h3>
+                <span className="landing-modern-tile-arrow">→</span>
+              </div>
+              <p>{tile.description}</p>
+
+              <div className="landing-modern-preview">
+                <video
+                  className="landing-modern-preview-video"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  poster="/image2.webp"
+                >
+                  <source src={tile.video} type="video/mp4" />
+                </video>
+                <div className="landing-modern-preview-fallback" aria-hidden="true" />
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      )}
+
+      {!IS_MODERN_THEME && <Clouds />}
 
       {/* Replay button */}
       {/* <motion.button

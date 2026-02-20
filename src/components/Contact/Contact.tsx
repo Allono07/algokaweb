@@ -1,27 +1,59 @@
+import { motion } from "framer-motion";
 import "./Contact.css";
 
 const Contact = () => {
   return (
-    <section className="contact-section" id="contact">
+    <motion.section
+      className="contact-section"
+      id="contact"
+      initial={{ opacity: 0, y: 26 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.18 }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+    >
       <div className="contact-container">
         <div className="contact-grid">
-          <div className="contact-intro">
+          <motion.div
+            className="contact-intro"
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          >
             <h2 className="contact-heading">Contact Us</h2>
             <p className="contact-description">
               Tell us what you are building and we will put together a plan that fits your goals and timeline.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="form-container contact-card">
+          <motion.div
+            className="form-container contact-card"
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
+          >
             <p className="title">Get in touch</p>
             <div className="contact-list">
-              <div className="contact-item">
+              <motion.div
+                className="contact-item"
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.95 }}
+                transition={{ duration: 0.35, delay: 0.02, ease: [0.22, 1, 0.36, 1] }}
+              >
                 <span className="contact-item-label">Phone</span>
                 <a className="contact-item-value" href="tel:+91 97602 27911">
                   +91 97602 27911
                 </a>
-              </div>
-            <div className="contact-item">
+              </motion.div>
+            <motion.div
+              className="contact-item"
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.95 }}
+              transition={{ duration: 0.35, delay: 0.07, ease: [0.22, 1, 0.36, 1] }}
+            >
               <span className="contact-item-label">Email</span>
               <a className="contact-item-link" href="mailto:algoka.io@gmail.com">
                 <span className="contact-icon" aria-hidden="true">
@@ -32,8 +64,14 @@ const Contact = () => {
                 </span>
                 <span className="contact-item-text">algoka.io@gmail.com</span>
               </a>
-            </div>
-            <div className="contact-item">
+            </motion.div>
+            <motion.div
+              className="contact-item"
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.95 }}
+              transition={{ duration: 0.35, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+            >
               <span className="contact-item-label">Instagram</span>
               <a className="contact-item-link" href="https://instagram.com/algoka" target="_blank" rel="noreferrer">
                 <span className="contact-icon" aria-hidden="true">
@@ -45,8 +83,14 @@ const Contact = () => {
                 </span>
                 <span className="contact-item-text">@algoka</span>
               </a>
-            </div>
-            <div className="contact-item">
+            </motion.div>
+            <motion.div
+              className="contact-item"
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.95 }}
+              transition={{ duration: 0.35, delay: 0.17, ease: [0.22, 1, 0.36, 1] }}
+            >
               <span className="contact-item-label">Twitter</span>
               <a className="contact-item-link" href="https://x.com/algoka" target="_blank" rel="noreferrer">
                 <span className="contact-icon" aria-hidden="true">
@@ -56,8 +100,14 @@ const Contact = () => {
                 </span>
                 <span className="contact-item-text">@algoka</span>
               </a>
-            </div>
-            <div className="contact-item">
+            </motion.div>
+            <motion.div
+              className="contact-item"
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.95 }}
+              transition={{ duration: 0.35, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            >
               <span className="contact-item-label">WhatsApp</span>
               <a className="contact-item-link" href="https://wa.me/15551234567" target="_blank" rel="noreferrer">
                 <span className="contact-icon" aria-hidden="true">
@@ -68,16 +118,22 @@ const Contact = () => {
                 </span>
                 <span className="contact-item-text">Chat on WhatsApp</span>
               </a>
-            </div>
-              <div className="contact-item">
+            </motion.div>
+              <motion.div
+                className="contact-item"
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.95 }}
+                transition={{ duration: 0.35, delay: 0.27, ease: [0.22, 1, 0.36, 1] }}
+              >
                 <span className="contact-item-label">Location</span>
                 <span className="contact-item-value">Bengaluru, KA - India</span>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

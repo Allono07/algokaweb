@@ -1,6 +1,6 @@
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import React, { useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, type PanInfo } from "framer-motion";
 import "./Projects.css";
 
 interface Testimonial {
@@ -12,212 +12,280 @@ interface Testimonial {
 
 const TESTIMONIALS_DATA: Testimonial[] = [
   {
-    title: "Enterprise AI Transformation",
-    quote: "“Algoka delivered a robust AI ecosystem aligned with our long-term digital strategy.” Their team demonstrated exceptional technical depth and strategic insight while architecting our AI infrastructure. The solution was not only scalable and secure but also seamlessly integrated into our existing enterprise systems. Algoka operates with the discipline and governance standards expected from top-tier technology partners.",
-    author: "Vikram Sethi",
-    role: "Chief Technology Officer, Apex Global Systems"
+    title: "Microsoft",
+    quote:
+      "Our strategic partnership with Algoka marks a significant milestone in our mission to accelerate enterprise AI transformation. By integrating Algoka's advanced conversational and GenAI capabilities with Microsoft's robust cloud and AI services, we are enabling enterprises to adopt AI at scale and with enterprise-grade security.",
+    author: "Mark Jackson",
+    role: "Director, Global HR Technology",
   },
   {
-    title: "Large-Scale Application Development",
-    quote: "“Execution excellence from architecture to deployment.” Algoka designed and deployed our enterprise-grade mobile application with precision. Their structured development methodology, documentation standards, and performance optimization exceeded expectations. The product has scaled reliably across multiple markets without compromise in stability.",
-    author: "Ananya Rao",
-    role: "VP – Digital Products, StratEdge Technologies"
-  },
-  {
-    title: "Corporate Web & Platform Engineering",
-    quote: "“A high-performance digital platform built for scale.” Algoka re-engineered our web infrastructure with a clear focus on scalability, cybersecurity, and conversion optimization. Their ability to balance design sophistication with backend resilience positioned us strongly in a competitive market. The measurable uplift in performance metrics validated our decision to partner with them.",
+    title: "AMD",
+    quote:
+      "In the moments that matter most, employees want to connect with people. Algoka frees HR professionals to engage with the employees they serve and be present in the interactions that deliver higher satisfaction.",
     author: "Rohan Mehta",
-    role: "Director – Technology & Innovation, Vertex Consulting Group"
+    role: "VP, Enterprise Systems",
   },
   {
-    title: "End-to-End Digital Transformation Partner",
-    quote: "“Strategic thinking combined with world-class execution.” What differentiates Algoka is their consultative approach. They didn’t simply develop software — they co-created a technology roadmap aligned with our business objectives. From AI integration to full-stack platform deployment, their team maintained enterprise governance standards while delivering on aggressive timelines.",
+    title: "AWS",
+    quote:
+      "We are excited to expand our collaboration and reinforce our shared commitment to empowering customers in the AI era with secure, scalable platforms.",
+    author: "Elena Brooks",
+    role: "Head of Cloud Partnerships",
+  },
+  {
+    title: "Vertex",
+    quote:
+      "As a global leader in AI, we saw a clear opportunity to bring that leadership into our own workplace. Our work with Algoka shows what is possible when you use AI to enhance how people work, connect, and lead.",
     author: "Sana Khanna",
-    role: "Chief Operating Officer, NovaCore Enterprises"
-  }
+    role: "Chief Operating Officer",
+  },
+  {
+    title: "NovaCore",
+    quote:
+      "Algoka's team brought enterprise-level discipline to every sprint. They aligned stakeholders fast and delivered a reliable production launch on schedule.",
+    author: "Vikram Sethi",
+    role: "Chief Technology Officer",
+  },
 ];
 
-const TiltCard = ({ children }: { children: React.ReactNode }) => {
-  const ref = useRef<HTMLDivElement>(null);
-
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const mouseXSpring = useSpring(x);
-  const mouseYSpring = useSpring(y);
-
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
-
-    const rect = ref.current.getBoundingClientRect();
-
-    const width = rect.width;
-    const height = rect.height;
-
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-
-    x.set(xPct);
-    y.set(yPct);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
-  return (
-    <motion.div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        rotateY,
-        rotateX,
-        transformStyle: "preserve-3d",
-      }}
-      className="relative h-full w-full perspective-1000"
-    >
-      <div
-        style={{
-          transform: "translateZ(30px)",
-          transformStyle: "preserve-3d",
-        }}
-        className="h-full w-full"
-      >
-        {children}
-      </div>
-    </motion.div>
-  );
+const getLayout = (width: number) => {
+  if (width < 768) return { cardsPerView: 1, gap: 16 };
+  if (width < 1200) return { cardsPerView: 2, gap: 20 };
+  return { cardsPerView: 4, gap: 24 };
 };
 
-const row1 = [...TESTIMONIALS_DATA];
-const row2 = [...TESTIMONIALS_DATA].reverse();
-
-const ProjectCardBody = ({ testimonial }: { testimonial: Testimonial }) => (
-  <>
-    <div className="project-card-header relative z-10">
-
-      <h3 className="project-card-title">{testimonial.title}</h3>
-    </div>
-    <div className="flex-grow relative z-10">
-      <p className="project-card-desc">{testimonial.quote}</p>
-    </div>
-    <div className="project-card-footer mt-auto pt-6 border-t border-white/10 flex items-center gap-4 relative z-10">
-      <div className="avatar transparent-glow">
-        {testimonial.author.charAt(0)}
-      </div>
-      <div>
-        <div className="author-name">{testimonial.author}</div>
-        <div className="author-role">{testimonial.role}</div>
-      </div>
-    </div>
-  </>
-);
-
-const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => (
-  <div className="testimonial-wrapper">
-    <TiltCard>
-      <div className="project-card h-full flex flex-col">
-        <ProjectCardBody testimonial={testimonial} />
-      </div>
-    </TiltCard>
-  </div>
-);
-
 const Projects = () => {
-  const [mobileIndex, setMobileIndex] = useState(0);
-  const totalSlides = TESTIMONIALS_DATA.length;
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const wheelAccumulatorRef = useRef(0);
+  const wheelTimerRef = useRef<number | null>(null);
+  const wheelLockTimerRef = useRef<number | null>(null);
+  const isWheelLockedRef = useRef(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [cardsPerView, setCardsPerView] = useState(4);
+  const [gap, setGap] = useState(24);
+  const [cardWidth, setCardWidth] = useState(0);
 
-  const goToPrevious = () => {
-    setMobileIndex((current) => (current === 0 ? totalSlides - 1 : current - 1));
+  useEffect(() => {
+    const updateLayout = () => {
+      const { cardsPerView: nextCards, gap: nextGap } = getLayout(window.innerWidth);
+      setCardsPerView(nextCards);
+      setGap(nextGap);
+    };
+
+    updateLayout();
+    window.addEventListener("resize", updateLayout);
+    return () => window.removeEventListener("resize", updateLayout);
+  }, []);
+
+  useEffect(() => {
+    const updateCardWidth = () => {
+      if (!viewportRef.current) return;
+
+      const viewportWidth = viewportRef.current.clientWidth;
+      const calculated = (viewportWidth - gap * (cardsPerView - 1)) / cardsPerView;
+      setCardWidth(calculated);
+    };
+
+    updateCardWidth();
+    window.addEventListener("resize", updateCardWidth);
+    return () => window.removeEventListener("resize", updateCardWidth);
+  }, [cardsPerView, gap]);
+
+  const maxIndex = Math.max(0, TESTIMONIALS_DATA.length - cardsPerView);
+  const step = cardWidth + gap;
+  const maxTranslate = maxIndex * step;
+  const targetX = -(currentIndex * step);
+
+  useEffect(() => {
+    if (currentIndex > maxIndex) {
+      setCurrentIndex(maxIndex);
+    }
+  }, [currentIndex, maxIndex]);
+
+  useEffect(() => {
+    return () => {
+      if (wheelTimerRef.current !== null) {
+        window.clearTimeout(wheelTimerRef.current);
+      }
+      if (wheelLockTimerRef.current !== null) {
+        window.clearTimeout(wheelLockTimerRef.current);
+      }
+    };
+  }, []);
+
+  const sliderTrackStyle = useMemo(
+    () => ({
+      gap: `${gap}px`,
+    }),
+    [gap]
+  );
+
+  const slideStyle = useMemo(
+    () => ({
+      width: cardWidth > 0 ? `${cardWidth}px` : undefined,
+      minWidth: cardWidth > 0 ? `${cardWidth}px` : undefined,
+    }),
+    [cardWidth]
+  );
+
+  const handlePrevious = () => setCurrentIndex((current) => Math.max(0, current - 1));
+  const handleNext = () => setCurrentIndex((current) => Math.min(maxIndex, current + 1));
+
+  const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    if (cardWidth <= 0) return;
+
+    const dragThreshold = cardWidth * 0.18;
+    const swipeVelocity = 520;
+
+    if (info.offset.x <= -dragThreshold || info.velocity.x <= -swipeVelocity) {
+      handleNext();
+      return;
+    }
+
+    if (info.offset.x >= dragThreshold || info.velocity.x >= swipeVelocity) {
+      handlePrevious();
+    }
   };
 
-  const goToNext = () => {
-    setMobileIndex((current) => (current === totalSlides - 1 ? 0 : current + 1));
+  const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
+    const dominantDelta =
+      Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+
+    if (Math.abs(dominantDelta) < 2) return;
+
+    const direction = dominantDelta > 0 ? 1 : -1;
+    const atStart = currentIndex === 0;
+    const atEnd = currentIndex === maxIndex;
+
+    // Allow normal page scroll if slider cannot move in requested direction.
+    if ((direction < 0 && atStart) || (direction > 0 && atEnd)) {
+      return;
+    }
+
+    event.preventDefault();
+
+    if (isWheelLockedRef.current) {
+      return;
+    }
+
+    // Resistive wheel threshold: users can scroll naturally and it snaps after intent is clear.
+    wheelAccumulatorRef.current += dominantDelta * 0.14;
+    const threshold = 132;
+    let didNavigate = false;
+
+    if (wheelAccumulatorRef.current >= threshold) {
+      handleNext();
+      wheelAccumulatorRef.current = 0;
+      didNavigate = true;
+    } else if (wheelAccumulatorRef.current <= -threshold) {
+      handlePrevious();
+      wheelAccumulatorRef.current = 0;
+      didNavigate = true;
+    }
+
+    if (wheelTimerRef.current !== null) {
+      window.clearTimeout(wheelTimerRef.current);
+    }
+
+    wheelTimerRef.current = window.setTimeout(() => {
+      wheelAccumulatorRef.current *= 0.12;
+      if (Math.abs(wheelAccumulatorRef.current) < 1) {
+        wheelAccumulatorRef.current = 0;
+      }
+    }, 80);
+
+    if (didNavigate) {
+      isWheelLockedRef.current = true;
+      if (wheelLockTimerRef.current !== null) {
+        window.clearTimeout(wheelLockTimerRef.current);
+      }
+      wheelLockTimerRef.current = window.setTimeout(() => {
+        isWheelLockedRef.current = false;
+      }, 260);
+    }
   };
 
   return (
-    <section className="projects-section" id="projects">
+    <motion.section
+      className="projects-section"
+      id="projects"
+      initial={{ opacity: 0, y: 26 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.18 }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+    >
       <div className="projects-container">
-        <h2 className="projects-title">Projects</h2>
-        <div className="marquee-container">
-          {/* First Row: Scrolling Left */}
-          <div className="marquee-row">
-            <div className="marquee-content scroll-left">
-              <div className="marquee-strip">
-                {row1.map((testimonial, index) => (
-                  <TestimonialCard key={index} testimonial={testimonial} />
-                ))}
-              </div>
-              <div className="marquee-strip" aria-hidden="true">
-                {row1.map((testimonial, index) => (
-                  <TestimonialCard key={index + 'dupe'} testimonial={testimonial} />
-                ))}
-              </div>
-            </div>
+        <motion.div
+          className="projects-header"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div>
+            <h2 className="projects-title">Projects</h2>
+            <p className="projects-subtitle">
+              Discover how organizations deliver AI value with Algoka.
+            </p>
           </div>
 
-          {/* Second Row: Scrolling Right */}
-          <div className="marquee-row mt-8">
-            <div className="marquee-content scroll-right">
-              <div className="marquee-strip">
-                {row2.map((testimonial, index) => (
-                  <TestimonialCard key={index} testimonial={testimonial} />
-                ))}
-              </div>
-              <div className="marquee-strip" aria-hidden="true">
-                {row2.map((testimonial, index) => (
-                  <TestimonialCard key={index + 'dupe'} testimonial={testimonial} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="projects-mobile-slider">
-          <div className="projects-mobile-viewport">
-            <div
-              className="projects-mobile-track"
-              style={{ transform: `translateX(-${mobileIndex * 100}%)` }}
-            >
-              {TESTIMONIALS_DATA.map((testimonial, index) => (
-                <div className="projects-mobile-slide" key={`mobile-${index}`}>
-                  <div className="project-card mobile-project-card h-full flex flex-col">
-                    <ProjectCardBody testimonial={testimonial} />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="projects-mobile-controls">
+          <div className="projects-controls" aria-label="Testimonials navigation">
             <button
               type="button"
-              className="projects-mobile-btn"
-              onClick={goToPrevious}
-              aria-label="Previous project"
+              className="projects-nav-btn"
+              onClick={handlePrevious}
+              disabled={currentIndex === 0}
+              aria-label="Previous testimonials"
             >
-              <ChevronLeft size={18} aria-hidden="true" />
+              <ChevronLeft size={20} />
             </button>
             <button
               type="button"
-              className="projects-mobile-btn"
-              onClick={goToNext}
-              aria-label="Next project"
+              className="projects-nav-btn"
+              onClick={handleNext}
+              disabled={currentIndex >= maxIndex}
+              aria-label="Next testimonials"
             >
-              <ChevronRight size={18} aria-hidden="true" />
+              <ChevronRight size={20} />
             </button>
           </div>
+        </motion.div>
+
+        <div className="projects-slider-viewport" ref={viewportRef} onWheel={handleWheel}>
+          <motion.div
+            className="projects-slider-track"
+            style={sliderTrackStyle}
+            drag="x"
+            dragConstraints={{ left: -maxTranslate, right: 0 }}
+            dragElastic={0.07}
+            dragMomentum
+            onDragEnd={handleDragEnd}
+            animate={{ x: targetX }}
+            transition={{ type: "spring", stiffness: 118, damping: 30, mass: 1.2 }}
+            whileTap={{ cursor: "grabbing" }}
+          >
+            {TESTIMONIALS_DATA.map((testimonial, index) => (
+              <motion.article
+                key={`${testimonial.title}-${index}`}
+                className="project-card"
+                style={slideStyle}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.35 }}
+                transition={{ duration: 0.45, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <h3 className="project-card-title">{testimonial.title}</h3>
+                <p className="project-card-desc">{testimonial.quote}</p>
+                <footer className="project-card-footer">
+                  <p className="project-card-author">{testimonial.author}</p>
+                  <p className="project-card-role">{testimonial.role}</p>
+                </footer>
+              </motion.article>
+            ))}
+          </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

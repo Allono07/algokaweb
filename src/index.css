@@ -113,3 +113,290 @@ html {
                 0 0 40px hsl(var(--primary) / 0.2);
   }
 }
+
+:root[data-site-theme="modern-light"] {
+  color-scheme: light;
+  --background: 210 43% 98%;
+  --foreground: 222 24% 12%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 222 24% 12%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 24% 12%;
+
+  --primary: 220 26% 12%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 214 56% 95%;
+  --secondary-foreground: 221 28% 19%;
+
+  --muted: 213 35% 95%;
+  --muted-foreground: 218 13% 43%;
+
+  --accent: 205 93% 58%;
+  --accent-foreground: 0 0% 100%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 214 30% 87%;
+  --input: 213 30% 90%;
+  --ring: 205 93% 58%;
+
+  --space-dark: 210 43% 98%;
+  --space-mid: 213 38% 95%;
+  --star-glow: 205 100% 72%;
+  --label-glow: 205 93% 58%;
+}
+
+:root[data-site-theme="modern-light"] body {
+  background:
+    radial-gradient(1200px 600px at 50% 240px, hsl(210 100% 91% / 0.85) 0%, transparent 64%),
+    linear-gradient(180deg, hsl(210 46% 98%) 0%, hsl(210 44% 97%) 50%, hsl(208 40% 96%) 100%);
+  color: hsl(var(--foreground));
+}
+
+:root[data-site-theme="modern-light"] .starfield {
+  display: none;
+}
+
+/* Modern navbar */
+:root[data-site-theme="modern-light"] .navbar {
+  background: transparent;
+  padding: 1.1rem 0;
+}
+
+:root[data-site-theme="modern-light"] .navbar-container {
+  max-width: 1240px;
+  border-radius: 1rem;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card) / 0.88);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 16px 32px -24px rgb(20 30 60 / 0.35);
+  padding: 0.85rem 1.25rem;
+  gap: 2rem;
+}
+
+:root[data-site-theme="modern-light"] .navbar-logo {
+  font-size: 1.45rem;
+  letter-spacing: 0.08em;
+  text-shadow: none;
+}
+
+:root[data-site-theme="modern-light"] .navbar-links {
+  gap: 1.6rem;
+}
+
+:root[data-site-theme="modern-light"] .navbar-link {
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  font-weight: 500;
+}
+
+:root[data-site-theme="modern-light"] .navbar-item-contact {
+  margin-left: 0.6rem;
+}
+
+:root[data-site-theme="modern-light"] .navbar-btn-contact {
+  background: hsl(var(--foreground));
+  color: hsl(var(--primary-foreground));
+  box-shadow: none;
+}
+
+:root[data-site-theme="modern-light"] .navbar-btn-contact:hover {
+  color: hsl(var(--primary-foreground));
+  box-shadow: 0 14px 24px -18px rgb(16 22 36 / 0.45);
+}
+
+:root[data-site-theme="modern-light"] .navbar-mobile-menu {
+  background: hsl(var(--card) / 0.96);
+}
+
+/* Modern landing */
+:root[data-site-theme="modern-light"] .landing {
+  background:
+    radial-gradient(900px 520px at 50% 180px, hsl(208 100% 92% / 0.8), transparent 70%),
+    transparent;
+}
+
+:root[data-site-theme="modern-light"] .landing-content {
+  min-height: 90vh;
+  justify-content: center;
+  align-items: center;
+  padding-top: 8.5rem;
+}
+
+:root[data-site-theme="modern-light"] .landing-text {
+  flex: 1 1 100%;
+  text-align: center;
+  justify-content: center;
+  padding: 2rem 1rem 1.5rem;
+}
+
+:root[data-site-theme="modern-light"] .landing-text-content {
+  max-width: 840px;
+  margin: 0 auto;
+}
+
+:root[data-site-theme="modern-light"] .landing-heading {
+  font-size: clamp(2.6rem, 6vw, 4.9rem);
+  letter-spacing: -0.02em;
+}
+
+:root[data-site-theme="modern-light"] .landing-heading-accent {
+  background: linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(var(--accent)) 180%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+:root[data-site-theme="modern-light"] .landing-subheading {
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  font-size: 1.15rem;
+  color: hsl(var(--muted-foreground));
+}
+
+:root[data-site-theme="modern-light"] .landing-cta {
+  width: auto;
+  min-width: 170px;
+  justify-content: center;
+  padding: 0 1.35rem;
+  border-radius: 0.65rem;
+  background: hsl(var(--foreground));
+  color: hsl(var(--primary-foreground));
+  box-shadow: 0 16px 28px -18px rgb(10 18 36 / 0.45);
+}
+
+:root[data-site-theme="modern-light"] .landing-cta:hover {
+  box-shadow: 0 20px 34px -20px rgb(10 18 36 / 0.48);
+}
+
+/* Modern About */
+:root[data-site-theme="modern-light"] .about-section::before {
+  background:
+    radial-gradient(circle at 20% 25%, hsl(207 100% 88% / 0.5), transparent 38%),
+    radial-gradient(circle at 85% 70%, hsl(220 88% 92% / 0.5), transparent 44%);
+}
+
+:root[data-site-theme="modern-light"] .about-eyebrow {
+  color: hsl(var(--accent));
+  font-size: 0.82rem;
+}
+
+:root[data-site-theme="modern-light"] .about-visual {
+  background: linear-gradient(155deg, hsl(0 0% 100%), hsl(210 62% 95%));
+  box-shadow: 0 26px 46px -34px rgb(20 40 70 / 0.38);
+}
+
+:root[data-site-theme="modern-light"] .about-profile-card,
+:root[data-site-theme="modern-light"] .about-message-bubble,
+:root[data-site-theme="modern-light"] .about-stat-card {
+  background: hsl(var(--card) / 0.93);
+}
+
+/* Modern Projects */
+:root[data-site-theme="modern-light"] .projects-title {
+  color: hsl(var(--foreground));
+  text-shadow: none;
+  background: none;
+  -webkit-text-fill-color: initial;
+}
+
+:root[data-site-theme="modern-light"] .project-card {
+  background: hsl(var(--card));
+  box-shadow: 0 14px 26px -22px rgb(20 40 70 / 0.35);
+}
+
+:root[data-site-theme="modern-light"] .project-card:hover {
+  box-shadow: 0 22px 34px -24px rgb(20 40 70 / 0.4);
+}
+
+:root[data-site-theme="modern-light"] .project-card-title,
+:root[data-site-theme="modern-light"] .author-name {
+  color: hsl(var(--foreground));
+}
+
+:root[data-site-theme="modern-light"] .avatar {
+  color: hsl(var(--foreground));
+  background: hsl(var(--secondary));
+}
+
+:root[data-site-theme="modern-light"] .avatar.transparent-glow {
+  border-color: hsl(var(--border));
+  box-shadow: none;
+  text-shadow: none;
+}
+
+/* Modern Contact */
+:root[data-site-theme="modern-light"] .form-container {
+  background: hsl(var(--card));
+  color: hsl(var(--foreground));
+  box-shadow: 0 18px 36px -28px rgb(20 40 70 / 0.36);
+}
+
+:root[data-site-theme="modern-light"] .contact-item {
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+:root[data-site-theme="modern-light"] .title,
+:root[data-site-theme="modern-light"] .contact-item-value,
+:root[data-site-theme="modern-light"] .contact-item-link {
+  color: hsl(var(--foreground));
+}
+
+:root[data-site-theme="modern-light"] .contact-item-label {
+  color: hsl(var(--muted-foreground));
+}
+
+:root[data-site-theme="modern-light"] .contact-icon {
+  background: hsl(var(--secondary));
+  border-color: hsl(var(--border));
+  box-shadow: none;
+}
+
+/* Modern solutions */
+:root[data-site-theme="modern-light"] .solutions-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(900px 480px at 50% 170px, hsl(208 100% 90% / 0.7), transparent 68%);
+  z-index: 0;
+}
+
+:root[data-site-theme="modern-light"] .solutions-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+:root[data-site-theme="modern-light"] .solutions-hero-panel,
+:root[data-site-theme="modern-light"] .solutions-card,
+:root[data-site-theme="modern-light"] .solutions-step,
+:root[data-site-theme="modern-light"] .solutions-cta-card {
+  background: hsl(var(--card));
+  box-shadow: 0 18px 34px -28px rgb(20 40 70 / 0.34);
+}
+
+@media (max-width: 768px) {
+  :root[data-site-theme="modern-light"] .navbar {
+    padding: 0.85rem 0;
+  }
+
+  :root[data-site-theme="modern-light"] .navbar-container {
+    margin: 0 1rem;
+  }
+
+  :root[data-site-theme="modern-light"] .landing-content {
+    padding-top: 7.5rem;
+    min-height: 82vh;
+  }
+
+  :root[data-site-theme="modern-light"] .landing-heading {
+    font-size: clamp(2rem, 10vw, 2.85rem);
+  }
+
+  :root[data-site-theme="modern-light"] .landing-subheading {
+    font-size: 1rem;
+  }
+}

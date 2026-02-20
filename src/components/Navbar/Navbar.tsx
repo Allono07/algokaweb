@@ -33,10 +33,9 @@ const Navbar = () => {
           className="navbar-logo"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          style={{ display: 'flex', alignItems: 'flex-start', gap: '-0.5rem' }}
         >
-          ALGOKA
-          <img src="/algoka2.webp" alt="Logo" style={{ height: '1.5em', width: 'auto' }} />
+          <span className="navbar-logo-text">ALGOKA</span>
+          <img src="/algoka3.png" alt="Algoka logo" className="navbar-logo-icon" />
         </motion.a>
 
         {/* Desktop Navigation */}
