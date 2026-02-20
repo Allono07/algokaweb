@@ -8,6 +8,7 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    allowedHosts: ["gogetting-cyril-unstringed.ngrok-free.dev"],
     hmr: {
       overlay: false,
     },
