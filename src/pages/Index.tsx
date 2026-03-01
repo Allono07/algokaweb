@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar/Navbar";
 import Landing from "@/components/Landing/Landing";
 import About from "@/components/About/About";
 import Projects from "@/components/Projects/Projects";
+import MarketingPartner from "@/components/MarketingPartner/MarketingPartner";
 import Contact from "@/components/Contact/Contact";
 import StarField from "@/components/StarField/StarField";
 import Footer from "@/components/Footer/Footer";
@@ -95,6 +96,7 @@ const Index = () => {
       <Landing />
       <About />
       <Projects />
+      <MarketingPartner />
       <Contact />
       <PreFooterTiles />
       <Footer />

@@ -174,6 +174,19 @@ const Solutions = () => {
             </p>
             <span className="solutions-card-tag">Web</span>
           </motion.article>
+          <motion.article
+            className="solutions-card"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.4, delay: 0.32, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <h3>Marketing Solutions</h3>
+            <p>
+              Strategic, data-driven marketing campaigns and SEO optimizations designed to accelerate your growth and maximize ROI.
+            </p>
+            <span className="solutions-card-tag">Marketing</span>
+          </motion.article>
         </div>
       </motion.section>
 
